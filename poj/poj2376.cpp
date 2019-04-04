@@ -1,0 +1,4 @@
+#include<cstdio>
+#include<cstdlib>
+using namespace std;typedef struct{int start, end;
+} interval;interval data[25000];int cmp(const void *a, const void *b){interval *p1, *p2;p1=(interval*)a;p2=(interval*)b;if(p1->start != p2->start) return p1->start - p2->start;else return p1->end - p2->end;}int main(){int n,t,i,j,ans,time,max_end;scanf("%d %d", &n, &t);for(i=0; i<n; i++) scanf("%d %d", &data[i].start, &data[i].end);qsort(data, n, sizeof(interval), cmp);if(data[0].start != 1) {printf("%d\n", -1); return 0;} else{time=data[0].end;i=1;while(data[i].start == 1) {time=data[i].end; i++;}}ans=1;while(time<t){if(i>=n) break;j=i;max_end=data[i].end;i++;while(i<n && data[i].start <= time+1){if(data[i].end > max_end) {j=i; max_end=data[i].end;}i++;}if(max_end <= time || data[j].start>time+1) break;else{ans++;time=data[j].end;}}if(time<t) printf("%d\n", -1);else printf("%d\n", ans);return 0;} 
